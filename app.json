@@ -1,0 +1,12 @@
+{
+  "name": "stackoverflow",
+  "displayName": "stackoverflow",
+  "expo": {
+    "name": "stackoverflow",
+    "slug": "stackoverflow",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
