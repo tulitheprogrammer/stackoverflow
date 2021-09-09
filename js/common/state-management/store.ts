@@ -1,5 +1,5 @@
 import { pokemonApi } from './../api/pokesliceapi';
-import { stackOverflowApi } from '../api/stackoverflowApiSlice';
+import { stackoverflowApi } from '../api/stackoverflowApiSlice';
 import { rootReducer } from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
@@ -10,7 +10,7 @@ const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(stackOverflowApi.middleware, pokemonApi.middleware),
+      getDefaultMiddleware().concat(stackoverflowApi.middleware),
     preloadedState,
   });
 };

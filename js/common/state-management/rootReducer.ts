@@ -1,10 +1,10 @@
-import { stackOverflowApi } from '../api/stackoverflowApiSlice';
+import { stackoverflowApi } from '../api/stackoverflowApiSlice';
 import { themeReducer } from '../theme/themeSlice';
 import { combineReducers } from '@reduxjs/toolkit';
-import { pokemonApi } from '../api/pokesliceapi';
+import { userReducer } from '../../components/user/userSlice';
 
 export const rootReducer = combineReducers({
-  [stackOverflowApi.reducerPath]: stackOverflowApi.reducer,
-  [pokemonApi.reducerPath]: pokemonApi.reducer,
+  [stackoverflowApi.reducerPath]: stackoverflowApi.reducer,
   themeReducer,
+  userReducer,
 });
