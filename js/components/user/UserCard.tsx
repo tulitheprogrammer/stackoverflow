@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
-import { Avatar, Card, useTheme, List } from 'react-native-paper';
+import { Avatar, Card, useTheme, List, ActivityIndicator } from 'react-native-paper';
 import { useGetUserByIdQuery } from '../../common/api';
 import { BaseUserProps } from './user.types';
 
 export const UserCard: FC<BaseUserProps> = ({ userId }) => {
   const { colors } = useTheme();
 
-  const { data, isError, isLoading } = useGetUserByIdQuery(userId);
+  const { data, isError, isLoading, isFetching } = useGetUserByIdQuery(userId);
   const { avatar: uri, name = 'None', reputation = 0, acceptRate = 'Missing data' } = data ?? {};
 
   return (
     <Card style={[styles.container, { backgroundColor: colors.background }]}>
+      <ActivityIndicator animating={isLoading} />
       {data ? (
         <Card.Content style={styles.content}>
           <Avatar.Image source={{ uri }} style={styles.avatar} />

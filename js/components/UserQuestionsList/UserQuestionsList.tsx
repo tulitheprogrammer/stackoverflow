@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList, FlatListProps } from 'react-native';
-import { List, Dialog, Portal, Divider, Paragraph } from 'react-native-paper';
+import { List, Dialog, Portal, Divider, Paragraph, ActivityIndicator } from 'react-native-paper';
 import { useGetQuestionsByUserIdQuery } from '../../common/api';
 import { BaseUserProps } from '../User';
 import { Question } from './userQuestionsList.types';
@@ -19,7 +19,7 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
   const [dialogInfo, setDialogInfo] = useState<DialogInfo>();
   const [sortBy, setSortBy] = useState(DEFAULT_SORT_BY);
 
-  const { data } = useGetQuestionsByUserIdQuery(userId);
+  const { data, isLoading } = useGetQuestionsByUserIdQuery(userId);
   const hideDialog = () => setVisible(false);
   const showDialog = (info: DialogInfo) => {
     setDialogInfo(info);
@@ -58,11 +58,12 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
   return data ? (
     <>
       <SafeAreaView style={styles.container}>
+        <ActivityIndicator animating={isLoading} />
         <FlatList {...flatListProps} />
       </SafeAreaView>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title >{dialogInfo?.title}</Dialog.Title>
+          <Dialog.Title>{dialogInfo?.title}</Dialog.Title>
           <Dialog.Content>
             <Paragraph>{dialogInfo?.sub} answer/s</Paragraph>
           </Dialog.Content>
