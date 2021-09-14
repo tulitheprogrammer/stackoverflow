@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, FlatList, FlatListProps } from 'react-native';
+import { SafeAreaView, StyleSheet, FlatList, FlatListProps, Text } from 'react-native';
 import {
   List,
   Dialog,
@@ -7,15 +7,14 @@ import {
   Divider,
   Paragraph,
   ActivityIndicator,
-  Surface,
+  Surface
 } from 'react-native-paper';
 import { useGetQuestionsByUserIdQuery } from '../../common/api';
 import { BaseUserProps } from '../User';
 import { Question } from './userQuestionsList.types';
 
 import { decode } from 'html-entities';
-
-const DEFAULT_SORT_BY = '';
+import { ListSortBar } from './ListSort';
 
 export interface DialogInfo {
   title: string;
@@ -25,7 +24,6 @@ export interface DialogInfo {
 export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
   const [visible, setVisible] = useState(false);
   const [dialogInfo, setDialogInfo] = useState<DialogInfo>();
-  const [sortBy, setSortBy] = useState(DEFAULT_SORT_BY);
 
   const { data, isLoading } = useGetQuestionsByUserIdQuery(userId);
   const hideDialog = () => setVisible(false);
@@ -33,8 +31,6 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
     setDialogInfo(info);
     setVisible(true);
   };
-
-  const ListHeaderComponent = () => {};
 
   const renderItem = ({
     item: { title: rawTitle, tags, question_id, answer_count = 0 },
@@ -56,7 +52,6 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
   };
 
   const flatListProps: FlatListProps<Question> = {
-    // ListHeaderComponent,
     ItemSeparatorComponent: Divider,
     data: data ?? [],
     renderItem,
@@ -67,6 +62,7 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
     <>
       <SafeAreaView style={styles.container}>
         <Surface>
+          {/* <ListSortBar /> */}
           <FlatList {...flatListProps} />
         </Surface>
       </SafeAreaView>
@@ -87,5 +83,5 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
+  },
 });

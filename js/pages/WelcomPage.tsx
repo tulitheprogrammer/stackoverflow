@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Title, useTheme } from 'react-native-paper';
+import { Headline, useTheme } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import { ThemeSwitch } from '@components/ThemeToggle';
 import { i18n } from '../common/i18n';
@@ -17,7 +17,7 @@ export const WelcomePage = () => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <ThemeSwitch />
-      <Title>{i18n.t('subject')}</Title>
+      <Headline style={styles.headline}>{i18n.t('subject')}</Headline>
       <UserSearchForm />
       {!!userId && (
         <>
@@ -32,7 +32,9 @@ export const WelcomePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
-    justifyContent: 'space-around',
+    padding: 10,
+  },
+  headline: {
+    padding: 10,
   },
 });
