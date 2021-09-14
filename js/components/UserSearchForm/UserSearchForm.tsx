@@ -14,19 +14,17 @@ export const UserSearchForm: FC = () => {
   const dispatch = useDispatch();
   const placeHolder = i18n.t('searchPlaceHolder');
 
-  const updateUserId = ({ userId }: FormFields) => void dispatch(setUserId(userId));
+  const updateUserId = ({ userId }: FormFields) => void (userId && dispatch(setUserId(userId)));
 
   return (
     <Formik initialValues={{ userId: DEFAULT_USER_ID }} onSubmit={updateUserId}>
       {({ handleChange, handleSubmit, values: { userId } }) => (
-        <>
           <Searchbar
             placeholder={placeHolder}
             onChangeText={handleChange('userId')}
             value={userId}
             onIconPress={handleSubmit}
           />
-        </>
       )}
     </Formik>
   );

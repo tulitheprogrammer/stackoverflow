@@ -1,6 +1,14 @@
 import React, { FC, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList, FlatListProps } from 'react-native';
-import { List, Dialog, Portal, Divider, Paragraph, ActivityIndicator } from 'react-native-paper';
+import {
+  List,
+  Dialog,
+  Portal,
+  Divider,
+  Paragraph,
+  ActivityIndicator,
+  Surface,
+} from 'react-native-paper';
 import { useGetQuestionsByUserIdQuery } from '../../common/api';
 import { BaseUserProps } from '../User';
 import { Question } from './userQuestionsList.types';
@@ -58,8 +66,9 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
   return data ? (
     <>
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator animating={isLoading} />
-        <FlatList {...flatListProps} />
+        <Surface>
+          <FlatList {...flatListProps} />
+        </Surface>
       </SafeAreaView>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
@@ -70,7 +79,9 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
         </Dialog>
       </Portal>
     </>
-  ) : null;
+  ) : (
+    <ActivityIndicator animating={isLoading} style={styles.container} />
+  );
 };
 
 const styles = StyleSheet.create({

@@ -11,8 +11,7 @@ export const UserCard: FC<BaseUserProps> = ({ userId }) => {
   const { avatar: uri, name = 'None', reputation = 0, acceptRate = 'Missing data' } = data ?? {};
 
   return (
-    <Card style={[styles.container, { backgroundColor: colors.background }]}>
-      <ActivityIndicator animating={isLoading} />
+    <Card style={styles.container}>
       {data ? (
         <Card.Content style={styles.content}>
           <Avatar.Image source={{ uri }} style={styles.avatar} />
@@ -23,11 +22,10 @@ export const UserCard: FC<BaseUserProps> = ({ userId }) => {
           </List.Section>
         </Card.Content>
       ) : (
-        <Card.Title
-          title={
-            isLoading ? 'Loading...' : isError ? 'Oh no, there was an error' : 'Please wait...'
-          }
-        />
+        <>
+          <ActivityIndicator animating={isLoading} style={styles.container} />
+          {!!isError && <Card.Title title={'Oh no, there was an error'} />}
+        </>
       )}
     </Card>
   );
@@ -40,7 +38,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
   avatar: {
