@@ -1,6 +1,5 @@
 import { DarkTheme, DefaultTheme, Provider } from 'react-native-paper';
 import React, { FC } from 'react';
-import { produce } from 'immer';
 import { selectIsDarkMode } from './themeSlice';
 import { useSelector } from 'react-redux';
 

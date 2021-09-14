@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../common/state-management';
+import { RootState } from '../../common/stateManagement';
 
 interface UserState {
   userId?: string;

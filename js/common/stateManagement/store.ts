@@ -1,8 +1,7 @@
-import { pokemonApi } from './../api/pokesliceapi';
-import { userApi } from '../api/userApiSlice';
-import { rootReducer } from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import type { PreloadedState } from '@reduxjs/toolkit';
+import { userApi } from '../api/userApiSlice';
+import { rootReducer } from './rootReducer';
 
 type RootState = ReturnType<typeof rootReducer>;
 

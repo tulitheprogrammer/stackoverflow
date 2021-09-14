@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Formik } from 'formik';
 import { Searchbar } from 'react-native-paper';
-import { setUserId } from '../User/userSlice';
 import { useDispatch } from 'react-redux';
+import { setUserId } from '../User/userSlice';
 import { i18n } from '../../common/i18n';
 export interface FormFields {
   userId: string;

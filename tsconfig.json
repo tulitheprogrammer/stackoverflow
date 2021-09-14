@@ -4,7 +4,11 @@
     "strict": true,
     "baseUrl": "./js",
     "paths": {
-      "@assets/*": ["assets/*"]
+      "@state": ["common/stateManagement"],
+      "@theme": ["common/theme"],
+      "@components": ["components"],
+      "@components/*": ["components/*"],
+      "@pages": ["pages"]
     }
-  },
+  }
 }
