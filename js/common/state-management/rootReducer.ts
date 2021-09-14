@@ -1,10 +1,10 @@
-import { stackoverflowApi } from '../api/stackoverflowApiSlice';
+import { userApi } from '../api/userApiSlice';
 import { themeReducer } from '../theme/themeSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 import { userReducer } from '../../components/user/userSlice';
 
 export const rootReducer = combineReducers({
-  [stackoverflowApi.reducerPath]: stackoverflowApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
   themeReducer,
   userReducer,
 });

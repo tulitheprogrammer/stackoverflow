@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Formik } from 'formik';
-import { TextInput, Button, useTheme } from 'react-native-paper';
-
-interface FormFields {
+import { TextInput, Button, useTheme, Searchbar } from 'react-native-paper';
+import { setUserId } from './userSlice';
+import { StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { i18n } from '../../common/i18n';
+import { lightTheme } from '../../common/theme';
+export interface FormFields {
   userId: string;
 }
 
-export const UserSearchForm = () => {
-  const { colors, dark } = useTheme();
+const DEFAULT_USER_ID = '1264804';
 
-  const fetchUser = ({ userId }: FormFields) => {};
+export const UserSearchForm: FC = () => {
+  const dispatch = useDispatch();
+  const placeHolder = i18n.t('searchPlaceHolder');
+
+  const updateUserId = ({ userId }: FormFields) => void dispatch(setUserId(userId));
 
   return (
-    <Formik initialValues={{ userId: '' }} onSubmit={fetchUser}>
-      {({ handleChange, handleSubmit, values: { userId}, isSubmitting }) => (
+    <Formik initialValues={{ userId: DEFAULT_USER_ID }} onSubmit={updateUserId}>
+      {({ handleChange, handleSubmit, values: { userId } }) => (
         <>
-          <TextInput
-            mode="outlined"
-            label="User Id"
-            placeholder="Please enter user id..."
-            clearButtonMode="while-editing"
+          <Searchbar
+            theme={lightTheme}
+            placeholder={placeHolder}
             onChangeText={handleChange('userId')}
-            value={ userId}
+            value={userId}
+            onIconPress={handleSubmit}
           />
-          <Button dark={dark} disabled={isSubmitting} onPress={handleSubmit}>
-            Submit
-          </Button>
         </>
       )}
     </Formik>

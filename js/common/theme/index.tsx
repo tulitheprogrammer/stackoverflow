@@ -4,12 +4,12 @@ import { produce } from 'immer';
 import { selectIsDarkMode } from './themeSlice';
 import { useSelector } from 'react-redux';
 
-const lightTheme = produce(DefaultTheme, (draftTheme) => {
+export const lightTheme = produce(DefaultTheme, (draftTheme) => {
   draftTheme.colors.text = '#000000';
   draftTheme.colors.background = '#FFFFFF';
 });
 
-const darkTheme = produce(DefaultTheme, (draftTheme) => {
+export const darkTheme = produce(DefaultTheme, (draftTheme) => {
   draftTheme.colors.text = '#FFFFFF';
   draftTheme.colors.background = '#000000';
 });

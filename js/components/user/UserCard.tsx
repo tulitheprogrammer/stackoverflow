@@ -1,40 +1,33 @@
-import { useGetUserByIdQuery } from 'common/api';
 import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
 import { Avatar, Card, useTheme, List } from 'react-native-paper';
+import { useGetUserByIdQuery } from '../../common/api';
+import { BaseUserProps } from './user.types';
 
-export interface RawUserInfo {
-  user_id: string;
-  display_name: string;
-  profile_image: string;
-  reputation: number;
-}
-
-export interface UserInfo {
-  userId: string;
-  name: string;
-  avatar: string;
-  reputation: number;
-}
-
-export const UserCard: FC<UserInfo> = ({ name, avatar, reputation }) => {
+export const UserCard: FC<BaseUserProps> = ({ userId }) => {
   const { colors } = useTheme();
 
+  const { data, isError, isLoading } = useGetUserByIdQuery(userId);
+  const { avatar: uri, name = 'None', reputation = 0, acceptRate = 'Missing data' } = data ?? {};
+
   return (
-    <Card style={[styles.container, { color: colors.text, backgroundColor: colors.background }]}>
-      <Card.Content style={styles.content}>
-        <Avatar.Image source={{ uri: avatar }} />
-        <List.Section>
-          <List.Item
-            title={name}
-            description="Item description"
-            left={() => <List.Icon icon="folder" />}
-          />
-          <List.Subheader>Some title</List.Subheader>
-          <List.Item title="First Item" left={() => <List.Icon icon="folder" />} />
-          <List.Item title="Second Item" left={() => <List.Icon color="#000" icon="folder" />} />
-        </List.Section>
-      </Card.Content>
+    <Card style={[styles.container, { backgroundColor: colors.background }]}>
+      {data ? (
+        <Card.Content style={styles.content}>
+          <Avatar.Image source={{ uri }} style={styles.avatar} />
+          <List.Section style={styles.info}>
+            <List.Item title="Name:" description={name} />
+            <List.Item title="Reputation" description={reputation} />
+            <List.Item title="Accept Rate" description={acceptRate} />
+          </List.Section>
+        </Card.Content>
+      ) : (
+        <Card.Title
+          title={
+            isLoading ? 'Loading...' : isError ? 'Oh no, there was an error' : 'Please wait...'
+          }
+        />
+      )}
     </Card>
   );
 };
@@ -48,12 +41,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    alignItems: 'flex-start',
+  },
+  avatar: {
+    alignSelf: 'center',
   },
   info: {
-    // flex: 1,
-    width: '50%',
-    flexDirection: 'row',
-    alignContent: 'space-between',
+    flex: 1,
   },
 });

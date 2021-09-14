@@ -1,22 +1,30 @@
 import React from 'react';
+import { StyleSheet, View , Text} from 'react-native';
 import { Title, useTheme } from 'react-native-paper';
-import { StyleSheet, View } from 'react-native';
-
 import { ThemeSwitch } from '../common/theme/ThemeToggle';
 import { i18n } from '../common/i18n';
 import { UserSearchForm } from '../components/user/UserSearchForm';
 import { UserCard } from '../components/user/UserCard';
-import { Questions } from '../components/user/Questions';
+import { UserQuestionsList } from '../components/user/UserQuestionsList';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../components/user/userSlice';
 
 export const WelcomePage = () => {
   const { colors } = useTheme();
+
+  const userId = useSelector(selectUserId);
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <ThemeSwitch />
       <Title>{i18n.t('subject')}</Title>
       <UserSearchForm />
-      <UserCard/>
-      <Questions/>
+      {!!userId && (
+        <>
+          <UserCard userId={userId} />
+          <UserQuestionsList userId={userId} />
+        </>
+      )}
     </View>
   );
 };
