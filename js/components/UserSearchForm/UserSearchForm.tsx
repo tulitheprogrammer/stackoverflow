@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import { Formik } from 'formik';
-import { TextInput, Button, useTheme, Searchbar } from 'react-native-paper';
-import { setUserId } from './userSlice';
-import { StyleSheet } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { setUserId } from '../User/userSlice';
 import { useDispatch } from 'react-redux';
 import { i18n } from '../../common/i18n';
-import { lightTheme } from '../../common/theme';
 export interface FormFields {
   userId: string;
 }
@@ -23,7 +21,6 @@ export const UserSearchForm: FC = () => {
       {({ handleChange, handleSubmit, values: { userId } }) => (
         <>
           <Searchbar
-            theme={lightTheme}
             placeholder={placeHolder}
             onChangeText={handleChange('userId')}
             value={userId}

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../state-management/store';
+import { RootState } from '../state-management';
 
 interface ThemeState {
   isDarkMode: boolean;

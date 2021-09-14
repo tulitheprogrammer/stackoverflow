@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Switch } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
-import { switchThemeMode } from './themeSlice';
+import { switchThemeMode } from '../common/theme';
 
 export const ThemeSwitch: FC = () => {
   const dispatch = useDispatch();

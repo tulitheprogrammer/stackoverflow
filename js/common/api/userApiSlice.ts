@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RawUserInfo, UserInfo } from '../../components/user/user.types';
-import { QuestionsList } from './../../components/user/user.types';
+import { RawUserInfo, UserInfo } from '../../components/User/user.types';
+import { QuestionsList } from '../../components/User/user.types';
 
 export const userApi = createApi({
   reducerPath: 'stackOverflowApi',

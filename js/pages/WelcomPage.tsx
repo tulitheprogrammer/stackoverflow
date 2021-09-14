@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, View , Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Title, useTheme } from 'react-native-paper';
-import { ThemeSwitch } from '../common/theme/ThemeToggle';
+import { ThemeSwitch } from '../components/ThemeToggle';
 import { i18n } from '../common/i18n';
-import { UserSearchForm } from '../components/user/UserSearchForm';
-import { UserCard } from '../components/user/UserCard';
-import { UserQuestionsList } from '../components/user/UserQuestionsList';
+import { UserSearchForm } from '../components/UserSearchForm';
+import { UserCard } from '../components/User';
+import { UserQuestionsList } from '../components/UserQuestionsList';
 import { useSelector } from 'react-redux';
-import { selectUserId } from '../components/user/userSlice';
+import { selectUserId } from '../components/User/userSlice';
 
 export const WelcomePage = () => {
   const { colors } = useTheme();

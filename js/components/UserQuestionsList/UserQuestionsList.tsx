@@ -1,26 +1,28 @@
 import React, { FC, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList, FlatListProps } from 'react-native';
-import { List, useTheme, Dialog, Portal, Divider, Paragraph } from 'react-native-paper';
+import { List, Dialog, Portal, Divider, Paragraph } from 'react-native-paper';
 import { useGetQuestionsByUserIdQuery } from '../../common/api';
-import { BaseUserProps, Question } from './user.types';
+import { BaseUserProps } from '../User';
+import { Question } from './userQuestionsList.types';
+
 import { decode } from 'html-entities';
 
 const DEFAULT_SORT_BY = '';
 
-export interface ModelInfo {
+export interface DialogInfo {
   title: string;
   sub: string;
 }
 
 export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
   const [visible, setVisible] = useState(false);
-  const [modalInfo, setModalInfo] = useState<ModelInfo>();
+  const [dialogInfo, setDialogInfo] = useState<DialogInfo>();
   const [sortBy, setSortBy] = useState(DEFAULT_SORT_BY);
 
   const { data } = useGetQuestionsByUserIdQuery(userId);
   const hideDialog = () => setVisible(false);
-  const showDialog = (info: ModelInfo) => {
-    setModalInfo(info);
+  const showDialog = (info: DialogInfo) => {
+    setDialogInfo(info);
     setVisible(true);
   };
 
@@ -40,7 +42,7 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
         title={title}
         onPress={() => showDialog({ title, sub: String(answer_count) })}
         description={description}
-        right={(props) => <List.Icon icon="arrow-right" />}
+        right={() => <List.Icon icon="arrow-right" />}
       />
     );
   };
@@ -59,10 +61,10 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
         <FlatList {...flatListProps} />
       </SafeAreaView>
       <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog} style={styles.dialog}>
-          <Dialog.Title style={styles.dialogText}>{modalInfo?.title}</Dialog.Title>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title >{dialogInfo?.title}</Dialog.Title>
           <Dialog.Content>
-            <Paragraph style={styles.dialogText}>{modalInfo?.sub} answer/s</Paragraph>
+            <Paragraph>{dialogInfo?.sub} answer/s</Paragraph>
           </Dialog.Content>
         </Dialog>
       </Portal>
@@ -73,11 +75,5 @@ export const UserQuestionsList: FC<BaseUserProps> = ({ userId }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  dialog: {
-    backgroundColor: '#000',
-  },
-  dialogText: {
-    color: '#fff',
-  },
+  }
 });
